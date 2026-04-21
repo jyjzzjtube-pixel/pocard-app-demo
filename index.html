@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="#0F5132" />
+<title>포카드홀덤펍 · Pocard Holdem Pub</title>
+<meta name="description" content="합법 · 프리미엄 · 장기운영 — 포카드홀덤펍 공식 앱 프로토타입" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green-900:#0A3D26;
+  --green-800:#0F5132;
+  --green-700:#146C3A;
+  --green-500:#1F9D5A;
+  --green-300:#7BD3A8;
+  --gold:#C9A85C;
+  --bg:#0B0F0D;
+  --card:#141A17;
+  --card-2:#1B2420;
+  --line:#22302A;
+  --text:#EAF2ED;
+  --text-dim:#9CB0A5;
+  --red:#E04F5F;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:'Noto Sans KR','Inter',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:radial-gradient(ellipse at top,#10261B 0%,#07110C 60%);
+  color:var(--text);
+  overflow-x:hidden;
+  min-height:100vh;
+  -webkit-font-smoothing:antialiased;
+}
+
+/* ====== TOP HEADER ====== */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 20px;
+  background:rgba(10,18,14,.85);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-logo{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--green-500),var(--green-800));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;color:#fff;
+  box-shadow:0 6px 20px rgba(31,157,90,.35);
+}
+.brand-name{font-size:15px;font-weight:800;letter-spacing:-.3px}
+.brand-sub{font-size:10px;color:var(--text-dim);letter-spacing:2px}
+.top-actions{display:flex;gap:14px;color:var(--text-dim)}
+.top-actions svg{width:20px;height:20px}
+
+/* ====== HERO ====== */
+.hero{
+  padding:28px 20px 22px;
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:-40px;
+  background:radial-gradient(circle at 80% 0%,rgba(31,157,90,.22),transparent 50%);
+  pointer-events:none;
+}
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:6px 12px;border-radius:100px;
+  background:rgba(31,157,90,.15);
+  border:1px solid rgba(31,157,90,.4);
+  color:var(--green-300);font-size:11px;font-weight:700;letter-spacing:.5px;
+}
+.hero h1{
+  margin-top:14px;
+  font-size:28px;line-height:1.25;font-weight:900;letter-spacing:-.6px;
+}
+.hero h1 .accent{color:var(--green-300)}
+.hero p{margin-top:10px;color:var(--text-dim);font-size:14px;line-height:1.55}
+
+.hero-card{
+  margin-top:22px;
+  background:linear-gradient(135deg,rgba(31,157,90,.22),rgba(15,81,50,.4));
+  border:1px solid rgba(31,157,90,.35);
+  border-radius:20px;
+  padding:18px;
+  position:relative;overflow:hidden;
+}
+.hero-card .kicker{font-size:11px;color:var(--green-300);font-weight:700;letter-spacing:1px}
+.hero-card .title{font-size:18px;font-weight:900;margin-top:6px;letter-spacing:-.3px}
+.hero-card .sub{font-size:12px;color:var(--text-dim);margin-top:4px}
+.hero-card .cta{
+  margin-top:14px;
+  background:var(--green-500);color:#062312;font-weight:800;
+  border:none;border-radius:12px;
+  padding:10px 14px;font-size:13px;
+  display:inline-flex;align-items:center;gap:6px;
+  cursor:pointer;
+}
+.hero-card .chip-bg{
+  position:absolute;right:-18px;top:-18px;
+  font-size:120px;opacity:.08;transform:rotate(12deg);
+  pointer-events:none;
+}
+
+/* ====== 3가지 원칙 ====== */
+.principles{
+  padding:6px 20px 20px;
+  display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
+}
+.p-card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px 10px;
+  text-align:center;
+}
+.p-icon{
+  width:36px;height:36px;margin:0 auto 8px;
+  background:rgba(31,157,90,.15);
+  border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--green-300);
+}
+.p-icon svg{width:20px;height:20px}
+.p-name{font-size:12px;font-weight:800;letter-spacing:-.2px}
+.p-en{font-size:9px;color:var(--text-dim);margin-top:2px;letter-spacing:1px}
+
+/* ====== SECTION ====== */
+.section{padding:22px 20px}
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:14px;
+}
+.section-title{font-size:18px;font-weight:900;letter-spacing:-.4px}
+.section-more{font-size:12px;color:var(--text-dim)}
+
+/* ====== QUICK MENU ====== */
+.quick{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:10px;
+  padding:0 20px 8px;
+}
+.q-item{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px 8px 12px;
+  text-align:center;
+  cursor:pointer;
+  transition:transform .15s ease, border-color .15s ease;
+}
+.q-item:active{transform:scale(.96);border-color:var(--green-500)}
+.q-emoji{font-size:22px;line-height:1}
+.q-label{font-size:11px;margin-top:6px;color:var(--text)}
+
+/* ====== TOURNAMENT CARD ====== */
+.tournament{
+  background:linear-gradient(135deg,#122017,#0B1410);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:16px;
+  position:relative;overflow:hidden;
+}
+.t-live{
+  position:absolute;top:14px;right:14px;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:4px 8px;border-radius:100px;
+  background:rgba(224,79,95,.18);
+  color:#FF7E8A;font-size:10px;font-weight:800;
+}
+.t-live::before{
+  content:"";width:6px;height:6px;border-radius:50%;
+  background:#E04F5F;animation:pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.t-date{font-size:11px;color:var(--green-300);font-weight:700;letter-spacing:1px}
+.t-name{font-size:17px;font-weight:900;margin-top:4px}
+.t-info{
+  display:flex;gap:14px;margin-top:12px;flex-wrap:wrap;
+}
+.t-info > div{font-size:11px;color:var(--text-dim)}
+.t-info strong{color:var(--text);font-weight:700;margin-left:4px}
+.t-prize{
+  margin-top:12px;padding-top:12px;
+  border-top:1px dashed var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.t-prize-label{font-size:10px;color:var(--text-dim);letter-spacing:1px}
+.t-prize-value{font-size:20px;font-weight:900;color:var(--gold)}
+.t-btn{
+  margin-top:14px;width:100%;
+  background:var(--green-500);color:#062312;font-weight:800;
+  border:none;border-radius:12px;padding:12px;font-size:14px;
+  cursor:pointer;
+}
+
+/* ====== STORE CARD ====== */
+.store-list{display:flex;flex-direction:column;gap:10px;padding:0 20px}
+.store{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+  display:flex;gap:12px;align-items:center;
+}
+.store-thumb{
+  width:56px;height:56px;border-radius:12px;
+  background:linear-gradient(135deg,var(--green-800),var(--green-500));
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;flex-shrink:0;
+}
+.store-body{flex:1;min-width:0}
+.store-name{font-size:14px;font-weight:800}
+.store-addr{font-size:11px;color:var(--text-dim);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.store-meta{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+.chip{
+  font-size:9px;padding:3px 7px;border-radius:100px;
+  background:rgba(31,157,90,.15);color:var(--green-300);
+  font-weight:700;letter-spacing:.5px;
+}
+.chip.open{background:rgba(224,79,95,.15);color:#FF7E8A}
+.store-go{
+  color:var(--text-dim);flex-shrink:0;
+}
+.store-go svg{width:20px;height:20px}
+
+/* ====== POINT BANNER ====== */
+.point{
+  margin:0 20px;
+  background:linear-gradient(135deg,var(--green-800),var(--green-900));
+  border-radius:20px;
+  padding:18px;
+  display:flex;justify-content:space-between;align-items:center;
+  border:1px solid rgba(201,168,92,.25);
+  position:relative;overflow:hidden;
+}
+.point::after{
+  content:"";position:absolute;right:-40px;top:-40px;
+  width:160px;height:160px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,168,92,.2),transparent 70%);
+}
+.point-label{font-size:11px;color:var(--green-300);letter-spacing:1px;font-weight:700}
+.point-value{
+  font-size:26px;font-weight:900;margin-top:4px;letter-spacing:-.5px;
+  font-family:'Inter',sans-serif;
+}
+.point-value small{font-size:14px;color:var(--text-dim);margin-left:3px}
+.point-sub{font-size:10px;color:var(--text-dim);margin-top:2px}
+.point-btn{
+  background:var(--gold);color:#2B1F05;font-weight:800;
+  border:none;border-radius:12px;padding:10px 14px;
+  font-size:12px;cursor:pointer;z-index:1;position:relative;
+}
+
+/* ====== BOTTOM NAV ====== */
+.bottom-nav{
+  position:sticky;bottom:0;z-index:50;
+  display:grid;grid-template-columns:repeat(5,1fr);
+  background:rgba(10,18,14,.92);
+  backdrop-filter:blur(18px);
+  border-top:1px solid var(--line);
+  padding:10px 4px 14px;
+  margin-top:30px;
+}
+.nav-btn{
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  background:none;border:none;color:var(--text-dim);
+  font-size:10px;font-weight:600;cursor:pointer;padding:4px;
+}
+.nav-btn.active{color:var(--green-300)}
+.nav-btn svg{width:22px;height:22px}
+
+/* ====== FLOATING CTA ====== */
+.float-cta{
+  position:fixed;bottom:78px;right:16px;z-index:40;
+  background:var(--green-500);color:#062312;
+  padding:12px 16px;border-radius:100px;
+  font-size:12px;font-weight:800;
+  box-shadow:0 10px 30px rgba(31,157,90,.4);
+  display:inline-flex;align-items:center;gap:6px;
+  cursor:pointer;border:none;
+}
+
+/* ====== TAB PANELS ====== */
+.panel{display:none;animation:fadein .25s ease}
+.panel.active{display:block}
+@keyframes fadein{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ====== FIT ON DESKTOP ====== */
+@media (min-width:768px){
+  body{background:#05090A;display:flex;justify-content:center;align-items:flex-start;padding:30px 0}
+  .phone-wrap{
+    width:420px;min-height:860px;
+    background:radial-gradient(ellipse at top,#10261B 0%,#07110C 60%);
+    border-radius:44px;overflow:hidden;
+    box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 0 10px #111,0 0 0 12px #2a2a2a;
+    position:relative;
+  }
+  .phone-wrap .float-cta{position:absolute}
+}
+
+/* ====== TOAST ====== */
+.toast{
+  position:fixed;left:50%;bottom:100px;transform:translateX(-50%) translateY(40px);
+  background:#1B2420;border:1px solid var(--green-500);
+  color:#fff;padding:12px 18px;border-radius:14px;font-size:13px;
+  opacity:0;transition:all .3s ease;pointer-events:none;z-index:100;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<div class="phone-wrap">
+
+<!-- ====== TOP BAR ====== -->
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-logo">♠</div>
+    <div>
+      <div class="brand-name">포카드홀덤펍</div>
+      <div class="brand-sub">POCARD HOLDEM</div>
+    </div>
+  </div>
+  <div class="top-actions">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+  </div>
+</header>
+
+<!-- ====== HOME PANEL ====== -->
+<div id="home" class="panel active">
+
+  <section class="hero">
+    <span class="badge">● PREMIUM HOLDEM SPACE</span>
+    <h1>합법·프리미엄·장기운영<br/><span class="accent">새로운 홀덤 기준</span></h1>
+    <p>현금거래 원천차단 · 포인트 기반 투명운영<br/>카페 같은 밝은 분위기의 프리미엄 공간</p>
+
+    <div class="hero-card">
+      <div class="chip-bg">♠</div>
+      <div class="kicker">WEEKLY TOURNAMENT</div>
+      <div class="title">주말 정규 토너먼트 모집중</div>
+      <div class="sub">매주 토요일 PM 7:00 · 전 지점 동시 진행</div>
+      <button class="cta" onclick="toast('예약 페이지로 이동합니다')">지금 예약하기 →</button>
+    </div>
+  </section>
+
+  <div class="principles">
+    <div class="p-card">
+      <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 3 7v6c0 5 4 9 9 9s9-4 9-9V7l-9-5z"/></svg></div>
+      <div class="p-name">합법</div>
+      <div class="p-en">LEGAL</div>
+    </div>
+    <div class="p-card">
+      <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 5 5L20 7"/></svg></div>
+      <div class="p-name">깔끔</div>
+      <div class="p-en">PREMIUM</div>
+    </div>
+    <div class="p-card">
+      <div class="p-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="m7 14 4-4 4 4 5-5"/></svg></div>
+      <div class="p-name">장기운영</div>
+      <div class="p-en">STABLE</div>
+    </div>
+  </div>
+
+  <div class="quick">
+    <div class="q-item" onclick="toast('매장찾기')"><div class="q-emoji">📍</div><div class="q-label">매장찾기</div></div>
+    <div class="q-item" onclick="toast('토너먼트')"><div class="q-emoji">🏆</div><div class="q-label">토너먼트</div></div>
+    <div class="q-item" onclick="toast('실시간 예약')"><div class="q-emoji">📅</div><div class="q-label">예약</div></div>
+    <div class="q-item" onclick="toast('포인트 충전')"><div class="q-emoji">💎</div><div class="q-label">포인트</div></div>
+    <div class="q-item" onclick="toast('랭킹')"><div class="q-emoji">📊</div><div class="q-label">랭킹</div></div>
+    <div class="q-item" onclick="toast('이벤트')"><div class="q-emoji">🎁</div><div class="q-label">이벤트</div></div>
+    <div class="q-item" onclick="toast('멤버십')"><div class="q-emoji">👑</div><div class="q-label">멤버십</div></div>
+    <div class="q-item" onclick="toast('공지사항')"><div class="q-emoji">📢</div><div class="q-label">공지</div></div>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title">오늘의 대회</div>
+      <div class="section-more">전체보기 ›</div>
+    </div>
+    <div class="tournament">
+      <div class="t-live">LIVE 진행중</div>
+      <div class="t-date">OCT · SAT · 19:00</div>
+      <div class="t-name">POCARD WEEKLY CUP #12</div>
+      <div class="t-info">
+        <div>참가자<strong>82명</strong></div>
+        <div>바이인<strong>5만P</strong></div>
+        <div>구조<strong>프리즈아웃</strong></div>
+      </div>
+      <div class="t-prize">
+        <div>
+          <div class="t-prize-label">TOTAL PRIZE</div>
+          <div class="t-prize-value">₩ 4,100,000</div>
+        </div>
+        <span class="chip">포인트 지급</span>
+      </div>
+      <button class="t-btn" onclick="toast('대회 상세로 이동')">참가 신청</button>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:4px">
+    <div class="section-head">
+      <div class="section-title">내 포인트</div>
+    </div>
+  </section>
+  <div class="point">
+    <div>
+      <div class="point-label">AVAILABLE POINT</div>
+      <div class="point-value">132,500<small>P</small></div>
+      <div class="point-sub">이번 달 적립 +28,000P</div>
+    </div>
+    <button class="point-btn" onclick="toast('포인트 충전')">충전하기 →</button>
+  </div>
+
+  <section class="section">
+    <div class="section-head">
+      <div class="section-title">주변 매장</div>
+      <div class="section-more">13개 지점 ›</div>
+    </div>
+  </section>
+  <div class="store-list">
+    <div class="store" onclick="toast('포항 본점 상세')">
+      <div class="store-thumb">🏪</div>
+      <div class="store-body">
+        <div class="store-name">포카드홀덤펍 · 포항 본점</div>
+        <div class="store-addr">경북 포항시 북구 항구동 · 1.2km</div>
+        <div class="store-meta">
+          <span class="chip open">● 영업중</span>
+          <span class="chip">데일리 토너먼트</span>
+        </div>
+      </div>
+      <div class="store-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></div>
+    </div>
+    <div class="store" onclick="toast('대구 칠곡점 상세')">
+      <div class="store-thumb">🏪</div>
+      <div class="store-body">
+        <div class="store-name">포카드홀덤펍 · 대구 칠곡점</div>
+        <div class="store-addr">대구 북구 칠곡중앙대로 · 일부 지역</div>
+        <div class="store-meta">
+          <span class="chip open">● 영업중</span>
+          <span class="chip">주말 대회</span>
+        </div>
+      </div>
+      <div class="store-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></div>
+    </div>
+    <div class="store" onclick="toast('서울 강남점 예정')">
+      <div class="store-thumb" style="background:linear-gradient(135deg,#555,#333)">🔜</div>
+      <div class="store-body">
+        <div class="store-name">포카드홀덤펍 · 서울 강남점 <span class="chip" style="margin-left:6px">OPENING SOON</span></div>
+        <div class="store-addr">서울 강남구 · 2026 Q2 오픈 예정</div>
+      </div>
+      <div class="store-go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg></div>
+    </div>
+  </div>
+
+  <section class="section" style="padding-bottom:40px">
+    <div class="hero-card" style="background:linear-gradient(135deg,rgba(201,168,92,.18),rgba(15,81,50,.3));border-color:rgba(201,168,92,.3)">
+      <div class="kicker" style="color:var(--gold)">FOR LANDLORDS</div>
+      <div class="title">건물주를 위한 상생 파트너십</div>
+      <div class="sub">민원 최소화 · 법적리스크 0 · 장기 안정 운영</div>
+      <button class="cta" style="background:var(--gold);color:#2B1F05" onclick="toast('입점 문의')">입점 문의하기 →</button>
+    </div>
+  </section>
+</div><!-- /home -->
+
+<!-- ====== OTHER PANELS ====== -->
+<div id="stores" class="panel" style="padding:30px 20px;text-align:center;color:var(--text-dim)">
+  <div style="font-size:42px;margin-bottom:10px">📍</div>
+  <div style="font-weight:800;color:#fff;font-size:18px">매장 찾기</div>
+  <p style="margin-top:6px;font-size:13px">GPS 기반 가까운 포카드홀덤펍 매장을 찾아드립니다</p>
+</div>
+<div id="tour" class="panel" style="padding:30px 20px;text-align:center;color:var(--text-dim)">
+  <div style="font-size:42px;margin-bottom:10px">🏆</div>
+  <div style="font-weight:800;color:#fff;font-size:18px">토너먼트</div>
+  <p style="margin-top:6px;font-size:13px">데일리·위클리·정규대회 일정 및 실시간 신청</p>
+</div>
+<div id="point" class="panel" style="padding:30px 20px;text-align:center;color:var(--text-dim)">
+  <div style="font-size:42px;margin-bottom:10px">💎</div>
+  <div style="font-weight:800;color:#fff;font-size:18px">내 포인트</div>
+  <p style="margin-top:6px;font-size:13px">투명한 포인트 내역 · 현금거래 원천차단 시스템</p>
+</div>
+<div id="my" class="panel" style="padding:30px 20px;text-align:center;color:var(--text-dim)">
+  <div style="font-size:42px;margin-bottom:10px">👤</div>
+  <div style="font-weight:800;color:#fff;font-size:18px">마이페이지</div>
+  <p style="margin-top:6px;font-size:13px">멤버십 등급 · 참가 기록 · 랭킹 · 설정</p>
+</div>
+
+<!-- ====== BOTTOM NAV ====== -->
+<nav class="bottom-nav">
+  <button class="nav-btn active" data-tab="home">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="m3 12 9-9 9 9v9a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1v-9z"/></svg>
+    홈
+  </button>
+  <button class="nav-btn" data-tab="stores">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    매장
+  </button>
+  <button class="nav-btn" data-tab="tour">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4a2 2 0 0 1-2-2V5h4"/><path d="M18 9h2a2 2 0 0 0 2-2V5h-4"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+    토너먼트
+  </button>
+  <button class="nav-btn" data-tab="point">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m12 2 3 7h7l-5.5 4.5L18 21l-6-4-6 4 1.5-7.5L2 9h7z"/></svg>
+    포인트
+  </button>
+  <button class="nav-btn" data-tab="my">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 22c0-4 4-7 8-7s8 3 8 7"/></svg>
+    MY
+  </button>
+</nav>
+
+<button class="float-cta" onclick="toast('카카오톡 상담 연결')">
+  <span>💬</span> 상담
+</button>
+
+<div class="toast" id="toast"></div>
+
+</div><!-- /phone-wrap -->
+
+<script>
+// Tab switching
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById(btn.dataset.tab).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+
+// Toast
+let toastTimer;
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(()=>t.classList.remove('show'),1800);
+}
+
+// Mobile viewport fix
+if(window.visualViewport){
+  window.visualViewport.addEventListener('resize',()=>{
+    document.documentElement.style.setProperty('--vh',window.visualViewport.height*.01+'px');
+  });
+}
+</script>
+</body>
+</html>
